@@ -6,6 +6,44 @@
   <title>Happy Birthday, My Love ❤️</title>
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
+    .background-decor {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+  
+    .floaty {
+      position: absolute;
+      font-size: 1.5rem;
+      animation: float 10s linear infinite;
+      opacity: 0.6;
+      user-select: none;
+    }
+  
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      25% {
+        opacity: 0.7;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+
+  <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -58,23 +96,27 @@
     }
 
     .hint {
-      font-size: 0.9rem;
-      background: rgba(255,255,255,0.8);
-      padding: 6px 12px;
-      border-radius: 20px;
-      position: absolute;
-      top: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: floatUp 2s ease-in-out infinite;
-      color: #b30059;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 14px;
+    border-radius: 20px;
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: floatUp 2.5s ease-in-out infinite;
+    color: #b30059;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    z-index: 1000;
+    white-space: nowrap;
     }
 
     @keyframes floatUp {
-      0% { transform: translateX(-50%) translateY(0); opacity: 1; }
-      50% { transform: translateX(-50%) translateY(-10px); opacity: 0.7; }
-      100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+    0%   { transform: translateX(-50%) translateY(0); opacity: 1; }
+    50%  { transform: translateX(-50%) translateY(-8px); opacity: 0.8; }
+    100% { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
+
 
     .footer {
       margin-top: 40px;
@@ -90,13 +132,15 @@
   </style>
 </head>
 <body>
+    <div class="background-decor" id="background-decor"></div>
+
   <h1>Happy Birthday, My Love 🎉</h1>
 
   <!-- Heart + Tooltip -->
   <div class="heart" id="heart" title="Click to play music ❤️">
     ❤️
-    <div class="hint" id="hint">Tap Me for a Surprise 🎵</div>
-  </div>
+    <div class="hint" id="hint">💖 Tap the Heart to Play Music 💖</div>
+  </div>  
 
   <p>
     On this special day, I just wanted to remind you how much you mean to me.  
@@ -136,25 +180,45 @@
     };
 
     heart.addEventListener('click', async () => {
-      try {
+    try {
         if (!isPlaying) {
-          await music.play();
-          isPlaying = true;
-          heart.classList.add('clicked');
-          hint.style.display = 'none';
-
-          // 🎉 Fire another round of confetti
-          confetti({
+        await music.play();
+        isPlaying = true;
+        heart.classList.add('clicked');
+        hint.style.display = 'none'; // 👈 Hide the hint
+        confetti({
             particleCount: 150,
             spread: 90,
             origin: { y: 0.6 }
-          });
+        });
         }
-      } catch (err) {
+    } catch (err) {
         alert("😢 Your browser blocked autoplay.\nPlease tap the heart again to play music.");
         console.error("Music play blocked:", err);
-      }
+    }
     });
+
+    // 🌌 Generate floating background emojis
+const bg = document.getElementById('background-decor');
+const icons = ['💖','✨','🌟','💫','💕','🎀','🌸'];
+
+function spawnFloaty() {
+  const floaty = document.createElement('div');
+  floaty.classList.add('floaty');
+  floaty.style.left = `${Math.random() * 100}vw`;
+  floaty.style.fontSize = `${Math.random() * 24 + 16}px`;
+  floaty.style.animationDuration = `${8 + Math.random() * 5}s`;
+  floaty.innerText = icons[Math.floor(Math.random() * icons.length)];
+  bg.appendChild(floaty);
+
+  setTimeout(() => {
+    bg.removeChild(floaty);
+  }, 14000);
+}
+
+// 🎈 Spawn them repeatedly!
+setInterval(spawnFloaty, 800);
+
   </script>
 </body>
 </html>
