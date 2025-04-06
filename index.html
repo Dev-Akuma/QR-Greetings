@@ -2,15 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Birthday, My Love ❤️</title>
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Open Sans', sans-serif;
@@ -23,6 +19,7 @@
       min-height: 100vh;
       text-align: center;
       padding: 20px;
+      overflow-x: hidden;
     }
 
     h1 {
@@ -43,20 +40,40 @@
       animation: pulse 1.5s infinite;
       margin: 30px 0;
       color: red;
-      cursor: pointer; /* makes it look clickable */
+      cursor: pointer;
       transition: transform 0.2s ease, color 0.3s ease;
+      position: relative;
     }
 
     .heart.clicked {
       color: #ff0055;
       transform: scale(1.4);
-      animation: none; /* stop pulsing after click */
+      animation: none;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.2); }
       100% { transform: scale(1); }
+    }
+
+    .hint {
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.8);
+      padding: 6px 12px;
+      border-radius: 20px;
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: floatUp 2s ease-in-out infinite;
+      color: #b30059;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      50% { transform: translateX(-50%) translateY(-10px); opacity: 0.7; }
+      100% { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
 
     .footer {
@@ -66,24 +83,21 @@
     }
 
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-      p {
-        font-size: 1rem;
-      }
-      .heart {
-        font-size: 3rem;
-      }
+      h1 { font-size: 2.2rem; }
+      p { font-size: 1rem; }
+      .heart { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
   <h1>Happy Birthday, My Love 🎉</h1>
-  
-  <!-- HEART as play button -->
-  <div class="heart" id="heart" title="Click to play music ❤️">❤️</div>
-  
+
+  <!-- Heart + Tooltip -->
+  <div class="heart" id="heart" title="Click to play music ❤️">
+    ❤️
+    <div class="hint" id="hint">Tap Me for a Surprise 🎵</div>
+  </div>
+
   <p>
     On this special day, I just wanted to remind you how much you mean to me.  
     You’re the sunshine in my cloudy days, the melody in my favorite song,  
@@ -98,25 +112,43 @@
     ~ Your Love ❤️
   </div>
 
-  <!-- Hidden audio element -->
-  <audio id="bg-music" loop>
+  <!-- Audio -->
+  <audio id="bg-music">
     <source src="music.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Script to play music on heart click -->
+  <!-- Confetti (Canvas Confetti) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const heart = document.getElementById('heart');
     const music = document.getElementById('bg-music');
-  
+    const hint = document.getElementById('hint');
     let isPlaying = false;
-  
+
+    // 🎊 Auto fire confetti on load
+    window.onload = () => {
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 },
+      });
+    };
+
     heart.addEventListener('click', async () => {
       try {
         if (!isPlaying) {
           await music.play();
           isPlaying = true;
           heart.classList.add('clicked');
+          hint.style.display = 'none';
+
+          // 🎉 Fire another round of confetti
+          confetti({
+            particleCount: 150,
+            spread: 90,
+            origin: { y: 0.6 }
+          });
         }
       } catch (err) {
         alert("😢 Your browser blocked autoplay.\nPlease tap the heart again to play music.");
@@ -124,6 +156,5 @@
       }
     });
   </script>
-  
 </body>
 </html>
