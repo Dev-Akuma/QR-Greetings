@@ -1,33 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Birthday, Love!</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, My Love ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: linear-gradient(to bottom right, #f9d1d1, #ffe5e5);
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #ffb2ec 0%,#ff82e0 50%, #ff6f82 100%);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       text-align: center;
-      padding: 50px;
+      padding: 20px;
     }
+
     h1 {
-      font-size: 3em;
-      color: #ff4d4d;
+      font-family: 'Sacramento', cursive;
+      font-size: 3rem;
+      color: #b30059;
+      margin-bottom: 20px;
     }
+
     p {
-      font-size: 1.5em;
+      font-size: 1.2rem;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .heart {
+      font-size: 4rem;
+      animation: pulse 1.5s infinite;
+      margin: 30px 0;
+      color: red;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
       color: #444;
     }
-    img {
-      max-width: 100%;
-      border-radius: 10px;
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      .heart {
+        font-size: 3rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Happy Birthday, My Sunshine! 🌞</h1>
-  <p>You're the sweetest part of my life. Here's to more laughs, hugs, and late-night chats. ❤️</p>
-  <img src="https://media.giphy.com/media/3o6ZsXXTDI3xHcZM08/giphy.gif" alt="Cute Birthday GIF">
-  <p>— With all my love, [Your Name] 🥰</p>
+  <h1>Happy Birthday, My Love 🎉</h1>
+  <div class="heart">❤️</div>
+  <p>
+    On this special day, I just wanted to remind you how much you mean to me.  
+    You’re the sunshine in my cloudy days, the melody in my favorite song,  
+    and the bug-free line of code in my spaghetti projects 😄  
+    <br><br>
+    May this year bring you all the joy you deserve.  
+    Here's to more laughter, love, and silly moments together.  
+  </p>
+  <div class="footer">
+    With all my heart,<br>
+    ~ Your Love ❤️
+  </div>
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  
 </body>
 </html>
