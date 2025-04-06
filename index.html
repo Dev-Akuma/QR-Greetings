@@ -108,11 +108,22 @@
   <script>
     const heart = document.getElementById('heart');
     const music = document.getElementById('bg-music');
-
-    heart.addEventListener('click', () => {
-      music.play();
-      heart.classList.add('clicked');
+  
+    let isPlaying = false;
+  
+    heart.addEventListener('click', async () => {
+      try {
+        if (!isPlaying) {
+          await music.play();
+          isPlaying = true;
+          heart.classList.add('clicked');
+        }
+      } catch (err) {
+        alert("😢 Your browser blocked autoplay.\nPlease tap the heart again to play music.");
+        console.error("Music play blocked:", err);
+      }
     });
   </script>
+  
 </body>
 </html>
