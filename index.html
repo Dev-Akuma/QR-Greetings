@@ -43,6 +43,14 @@
       animation: pulse 1.5s infinite;
       margin: 30px 0;
       color: red;
+      cursor: pointer; /* makes it look clickable */
+      transition: transform 0.2s ease, color 0.3s ease;
+    }
+
+    .heart.clicked {
+      color: #ff0055;
+      transform: scale(1.4);
+      animation: none; /* stop pulsing after click */
     }
 
     @keyframes pulse {
@@ -72,7 +80,10 @@
 </head>
 <body>
   <h1>Happy Birthday, My Love 🎉</h1>
-  <div class="heart">❤️</div>
+  
+  <!-- HEART as play button -->
+  <div class="heart" id="heart" title="Click to play music ❤️">❤️</div>
+  
   <p>
     On this special day, I just wanted to remind you how much you mean to me.  
     You’re the sunshine in my cloudy days, the melody in my favorite song,  
@@ -81,14 +92,27 @@
     May this year bring you all the joy you deserve.  
     Here's to more laughter, love, and silly moments together.  
   </p>
+
   <div class="footer">
     With all my heart,<br>
     ~ Your Love ❤️
   </div>
-  <audio autoplay loop>
+
+  <!-- Hidden audio element -->
+  <audio id="bg-music" loop>
     <source src="music.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-  
+
+  <!-- Script to play music on heart click -->
+  <script>
+    const heart = document.getElementById('heart');
+    const music = document.getElementById('bg-music');
+
+    heart.addEventListener('click', () => {
+      music.play();
+      heart.classList.add('clicked');
+    });
+  </script>
 </body>
 </html>
